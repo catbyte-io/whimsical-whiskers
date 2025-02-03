@@ -2,7 +2,7 @@ import express from "express";
 import ViteExpress from "vite-express";
 import nunjucks from 'nunjucks';
 
-import { characters } from "./calls";
+import { characters } from "./calls.js";
 
 const app = express();
 
