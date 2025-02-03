@@ -16,3 +16,5 @@ const characters = [
     { name: 'Bluestar', link: 'character/bluestar', breed: 'Russian_Blue'},
     { name: 'Graystripe', link: 'character/graystripe', breed: 'Maine_Coon'}
   ];
+
+  export { characters };
