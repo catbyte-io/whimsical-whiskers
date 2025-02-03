@@ -9,3 +9,10 @@ const apiKey = process.env.CAT_API_KEY;
 // Define URL parts
 axios.defaults.baseURL = "https://api.thecatapi.com/v1/"
 axios.defaults.headers.common['x-api-key'] = apiKey;
+
+// Warrior cats character data
+const characters = [
+    { name: 'Fireheart', link: 'character/fireheart', breed: 'Abyssinian'},
+    { name: 'Bluestar', link: 'character/bluestar', breed: 'Russian_Blue'},
+    { name: 'Graystripe', link: 'character/graystripe', breed: 'Maine_Coon'}
+  ];
