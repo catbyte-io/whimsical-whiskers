@@ -1,5 +1,6 @@
 {% extends "base.njk" %}
 
+{% block title %}Whimsical Whiskers{% endblock title %}
 {% block body %}
     {% block content %}
     <h1>Warrior Cats</h1>
@@ -8,5 +9,5 @@
             <li><a href="{{ character.link }}">{{ character.name }}</a></li>
         {% endfor %}
     </ul>
-    {% endblock %}
-{% endblock %}
+    {% endblock content %}
+{% endblock body %}
