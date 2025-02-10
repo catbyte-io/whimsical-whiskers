@@ -17,4 +17,39 @@ const characters = [
     { name: 'Graystripe', link: 'character/graystripe', breed: 'Maine_Coon'}
   ];
 
-  export { characters };
+// Get character breed data from the CAT API
+async function getBreedData(breed) {
+  try {
+    const response = await axios.get(
+      '/breeds',
+      { params: {
+          breed: breed,
+          limit: 10,
+      }}
+    );
+    return response.data;
+  } catch (error) {
+      console.error('There was an error fetching breed data');
+  }
+};
+
+// Get images by breed from the CAT API
+async function getBreedImages(breed) {
+  try {
+    const response = await axios.get(
+      'images/',
+      { params: {
+          breed: breed,
+          limit: 10,
+      }}
+    );
+    return response.data;
+  } catch (error) {
+    console.error('There was an error fetching cat images');
+  }
+};
+
+// Exports
+export { characters };
+export { getBreedData };
+export { getBreedImages };
