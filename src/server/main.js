@@ -2,7 +2,7 @@ import express from "express";
 import ViteExpress from "vite-express";
 import nunjucks from 'nunjucks';
 
-import { characters } from "./calls.js";
+import { characters, getBreedData, getBreedImages } from "./calls.js";
 
 const app = express();
 
@@ -37,7 +37,7 @@ app.get('/character/:name', async (req, res) => {
   const character = characters.find(c => c.name.toLowerCase === characterString);
 
   if (character) {
-    const characterBreed = await getBreed(character.breed);
+    const characterBreed = await getBreedData(character.breed);
     res.render('character.njk', { characterBreed, characterName, characters });
   } else {
     res.status(404).send('Character not found');
