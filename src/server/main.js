@@ -22,8 +22,24 @@ const server = app.listen(3000, "0.0.0.0", () =>
 ViteExpress.bind(app, server);
 
 // Routes
+
+// Home
 app.get('/', (req, res) => {
   res.render('index.njk', 
     { characters },
   );
+});
+
+// Character View
+app.get('/character/:name', async (req, res) => {
+  const characterName = req.params.name;
+  const characterString = characterName.toLowerCase;
+  const character = characters.find(c => c.name.toLowerCase === characterString);
+
+  if (character) {
+    const characterBreed = await getBreed(character.breed);
+    res.render('character.njk', { characterBreed, characterName, characters });
+  } else {
+    res.status(404).send('Character not found');
+  }
 });
