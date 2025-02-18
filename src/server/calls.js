@@ -11,20 +11,20 @@ axios.defaults.baseURL = "https://api.thecatapi.com/v1/"
 axios.defaults.headers.common['x-api-key'] = apiKey;
 
 // Warrior cats character data
-const characters = [
-    { name: 'Fireheart', link: 'character/fireheart', breed: 'Abyssinian'},
-    { name: 'Bluestar', link: 'character/bluestar', breed: 'Russian_Blue'},
-    { name: 'Graystripe', link: 'character/graystripe', breed: 'Maine_Coon'}
-  ];
+const characters = {
+    fireheart: { name: 'Fireheart', link: 'character/fireheart', breed: 'Abyssinian'},
+    bluestar: { name: 'Bluestar', link: 'character/bluestar', breed: 'Russian_Blue'},
+    graystripe: { name: 'Graystripe', link: 'character/graystripe', breed: 'Maine_Coon'}
+};
 
 // Get character breed data from the CAT API
 async function getBreedData(breed) {
   try {
     const response = await axios.get(
-      '/breeds',
+      '/breeds/search?',
       { params: {
-          breed: breed,
-          limit: 10,
+          breed_id: breed,
+          limit: 1,
       }}
     );
     return response.data;
@@ -37,9 +37,9 @@ async function getBreedData(breed) {
 async function getBreedImages(breed) {
   try {
     const response = await axios.get(
-      'images/',
+      '/images/search?',
       { params: {
-          breed: breed,
+          breed_ids: breed,
           limit: 10,
       }}
     );
