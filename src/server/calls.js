@@ -23,7 +23,7 @@ async function getBreedData(breed) {
     const response = await axios.get(
       '/breeds/search?',
       { params: {
-          breed_id: breed,
+          name: breed,
           limit: 1,
       }}
     );
