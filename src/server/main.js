@@ -25,20 +25,26 @@ ViteExpress.bind(app, server);
 
 // Home
 app.get('/', (req, res) => {
+  const characterArray = Object.values(characters);
   res.render('index.njk', 
-    { characters },
+    { characters: characterArray },
   );
+  console.log(characters);
 });
 
 // Character View
 app.get('/character/:name', async (req, res) => {
-  const characterName = req.params.name;
-  const characterString = characterName.toLowerCase;
-  const character = characters.find(c => c.name.toLowerCase === characterString);
+  const characterString = req.params.name;
+  const character = characters[characterString];
 
   if (character) {
-    const characterBreed = await getBreedData(character.breed);
-    res.render('character.njk', { characterBreed, characterName, characters });
+    console.log(character.name);
+    const BreedData = await getBreedData(character.breed);
+    console.log(BreedData);
+    const characterBreedData = BreedData[0];
+    const characterImages = await getBreedImages(characterBreedData.id);
+    console.log("breed data:"+characterBreedData.name);
+    res.render('character.njk', { characterBreedData, character, characterImages, characters });
   } else {
     res.status(404).send('Character not found');
   }
