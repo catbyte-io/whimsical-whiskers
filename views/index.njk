@@ -1,9 +1,9 @@
-{% extends "base.njk" %}
+{% extends 'base.njk' %}
 
 {% block page_title %}Whimsical Whiskers{% endblock page_title %}
 
 {% block content %}
-<h1>Warrior Cats</h1>
+<h1 class="center">Warrior Cats</h1>
 <ul>
     {% for character in characters %}
         <li><a href="{{ character.link }}">{{ character.name }}</a></li>
