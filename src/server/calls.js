@@ -1,5 +1,7 @@
+// Axios for API calls
 import axios from 'axios';
 
+// Dotenv for loading environment variables
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -29,7 +31,7 @@ async function getBreedData(breed) {
     );
     return response.data;
   } catch (error) {
-      console.error('There was an error fetching breed data');
+      console.error('There was an error fetching breed data:', error);
   }
 };
 
@@ -45,7 +47,7 @@ async function getBreedImages(breed) {
     );
     return response.data;
   } catch (error) {
-    console.error('There was an error fetching cat images');
+    console.error('There was an error fetching cat images:', error);
   }
 };
 
