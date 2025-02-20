@@ -25,6 +25,7 @@ ViteExpress.bind(app, server);
 
 // Home
 app.get('/', (req, res) => {
+  // Pass character dictionary to object to access values
   const characterArray = Object.values(characters);
   res.render('index.njk', 
     { characters: characterArray },
@@ -34,14 +35,18 @@ app.get('/', (req, res) => {
 
 // Character View
 app.get('/character/:name', async (req, res) => {
+  // Get character from character dictionary
   const characterString = req.params.name;
   const character = characters[characterString];
 
+  // If the character exists
   if (character) {
     console.log(character.name);
+    // Get and save character breed data
     const BreedData = await getBreedData(character.breed);
     console.log(BreedData);
     const characterBreedData = BreedData[0];
+    // Get and save character breed images
     const characterImages = await getBreedImages(characterBreedData.id);
     console.log("breed data:"+characterBreedData.name);
     res.render('character.njk', { characterBreedData, character, characterImages, characters });
