@@ -4,11 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "lint": "eslint src/",
     "dev": "nodemon src/server/main.js -w src/server",
     "start": "NODE_ENV=production node src/server/main.js",
     "build": "vite build"
   },
   "devDependencies": {
+    "@eslint/js": "^9.20.0",
+    "eslint": "^9.20.1",
+    "globals": "^15.15.0",
     "nodemon": "^3.0.1",
     "vite": "^5.0.2"
   },
