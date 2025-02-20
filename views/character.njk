@@ -4,7 +4,11 @@
 
 {% block content %}
     <h1>{{ character.name }}</h1>
-    <h3>{{ character.breed }}</h3>
-    
+    <h3>{{ characterBreedData.name }}</h3>
+    <p>{{ characterBreedData.temperament }}</p>
+    {% for image in characterImages %}
+        <img src="{{ image.url }}" alt="Cat Image">
+    {% endfor %}
+
     
 {% endblock content %}
