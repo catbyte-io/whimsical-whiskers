@@ -1,7 +1,14 @@
-import "./style.css";
+import "./styles.css";
 
 import { setupCounter } from "./counter.js";
 import javascriptLogo from "./javascript.svg";
+
+import { paddingPaws } from "./mouse-chase.js";
+
+// Enable mouse follower
+document.addEventListener('DOMContentLoaded', (event) => {
+  paddingPaws();
+});
 
 document.querySelector("#app").innerHTML = `
   <div>
