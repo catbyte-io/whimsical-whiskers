@@ -6,9 +6,17 @@
     <h1>{{ character.name }}</h1>
     <h3>{{ characterBreedData.name }}</h3>
     <p>{{ characterBreedData.temperament }}</p>
-    {% for image in characterImages %}
-        <img src="{{ image.url }}" alt="Cat Image">
-    {% endfor %}
+    <div class="row">
+        {% for image in characterImages %}
+            {% if loop.index0 % 4 == 0 %}
+                {% if not loop.first %}</div>{% endif %}
+                <div class="column">
+            {% endif %}
+            <img src="{{ image.url }}" alt="Cat Image">
+        {% endfor %}
+        </div>
+    </div>
+        
 
     
 {% endblock content %}
