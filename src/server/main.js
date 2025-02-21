@@ -39,7 +39,7 @@ app.get('/character/:name', async (req, res) => {
   const characterString = req.params.name;
   const character = characters[characterString];
 
-  // If the character exists
+  // If the character exists...
   if (character) {
     console.log(character.name);
     // Get and save character breed data
