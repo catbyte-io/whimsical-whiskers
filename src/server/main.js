@@ -4,6 +4,7 @@ import nunjucks from 'nunjucks';
 
 import { characters, getBreedData, getBreedImages } from "./calls.js";
 
+// Define server application
 const app = express();
 
 // Configure app to use nunjucks for templating
@@ -12,17 +13,19 @@ nunjucks.configure('views', {
   express: app
 });
 
+// Configure static directories
 app.use(express.static('public'));
 app.use(express.static('src/client'));
 
+// Set port and address where the application will be served
 const server = app.listen(3000, "0.0.0.0", () =>
   console.log("Server is listening...")
 );
 
+// Create bindings
 ViteExpress.bind(app, server);
 
 // Routes
-
 // Home
 app.get('/', (req, res) => {
   // Pass character dictionary to object to access values
@@ -42,10 +45,12 @@ app.get('/character/:name', async (req, res) => {
   // If the character exists...
   if (character) {
     console.log(character.name);
+
     // Get and save character breed data
     const BreedData = await getBreedData(character.breed);
     console.log(BreedData);
     const characterBreedData = BreedData[0];
+    
     // Get and save character breed images
     const characterImages = await getBreedImages(characterBreedData.id);
     console.log("breed data:"+characterBreedData.name);
