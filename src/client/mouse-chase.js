@@ -1,7 +1,22 @@
-function paddingPaws() { 
-  // Simple animation to make paw prints follow the cursor
-  // https://stackoverflow.com/questions/15653801/rotating-object-to-face-mouse-pointer-on-mousemove
+// Simple animation to make paw prints follow the cursor
+// https://stackoverflow.com/questions/60837081/how-to-create-a-new-element-on-cursor-dom
+// https://stackoverflow.com/questions/15653801/rotating-object-to-face-mouse-pointer-on-mousemove
+function paddingPaws() {
+    // Track last time and set minimum interval to show paws
+    let lastPawTime = 0;
+    const minInterval = 200;
+
     document.addEventListener('mousemove', function(e) {
+        // Get the current time and check if the minimum inverval has passed
+        const currentTime = Date.now();
+        // If not enough time has passed, return without adding prints
+        if (currentTime - lastPawTime < minInterval) {
+            return;
+        }
+        // Set last paw time to now
+        lastPawTime = currentTime;
+
+        // Create the div element and add class
         let paw = document.createElement('div');
         paw.className = 'paw-print';
 
@@ -22,11 +37,11 @@ function paddingPaws() {
         };
         // Get angle and rotate
         let angle = Math.atan2(e.pageX - pawCenter.x, - (e.pageY - pawCenter.y)) * (180 / Math.PI);
-        paw.style.transform = `rotate(${angle - 180}deg)`;
+        paw.style.transform = `rotate(${angle}deg)`;
 
          // Add delay before showing paw
          setTimeout(function() {
-            paw.style.opacity = '1';  // Ensure the paw is visible after delay
+            paw.style.opacity = '1';
         }, 500);
 
         // Remove paw after 1 second
