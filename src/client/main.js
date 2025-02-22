@@ -1,9 +1,8 @@
 import "./styles.css";
 
-import { setupCounter } from "./counter.js";
-import javascriptLogo from "./javascript.svg";
-
 import { paddingPaws } from "./mouse-chase.js";
+import { setupCounter } from "./counter.js";
+import grayPawLogo from "./PawSiren.png";
 
 // Enable mouse follower
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -12,11 +11,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 document.querySelector("#app").innerHTML = `
   <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
+    <a href="https://github.com/catbyte-io/whimsical-whiskers" target="_blank">
+      <img src="/whiskers_blue.png" class="logo" alt="Whisker logo" />
     </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
+    <a href="https://catbyte.dev" target="_blank">
+      <img src="${grayPawLogo}" class="logo vanilla" alt="Gray Paw logo" />
     </a>
     <h1>Hello Vite!</h1>
     <div class="card">
