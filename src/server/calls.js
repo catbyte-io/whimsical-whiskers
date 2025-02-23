@@ -14,9 +14,10 @@ axios.defaults.headers.common['x-api-key'] = apiKey;
 
 // Warrior cats character data
 const characters = {
-    fireheart: { name: 'Fireheart', link: 'character/fireheart', breed: 'Abyssinian'},
-    bluestar: { name: 'Bluestar', link: 'character/bluestar', breed: 'Russian_Blue'},
-    graystripe: { name: 'Graystripe', link: 'character/graystripe', breed: 'Maine_Coon'}
+    fireheart: { name: 'Fireheart', link: '/fireheart', breed: 'Abyssinian'},
+    bluestar: { name: 'Bluestar', link: '/bluestar', breed: 'Russian_Blue'},
+    graystripe: { name: 'Graystripe', link: '/graystripe', breed: 'Maine_Coon'},
+    ravenpaw: { name: 'Ravenpaw', link: '/ravenpaw', breed: 'Bombay'}
 };
 
 // Get character breed data from the CAT API
