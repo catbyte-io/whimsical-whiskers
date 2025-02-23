@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
 });
 
 // Character View
-app.get('/character/:name', async (req, res) => {
+app.get('/:name', async (req, res) => {
   // Get character from character dictionary
   const characterString = req.params.name;
   const character = characters[characterString];
@@ -46,15 +46,27 @@ app.get('/character/:name', async (req, res) => {
   if (character) {
     console.log(character.name);
 
+    // Create navigation by finding indexes of characters
+    const characterArray = Object.values(characters);
+    console.log(characterArray);
+    // Find index of the current character
+    const currentIndex = characterArray.findIndex(char => char.name === character.name);
+    console.log(currentIndex);
+    const prevIndex = (currentIndex - 1 + characterArray.length) % characterArray.length;
+    const nextIndex = (currentIndex + 1) % characterArray.length;
+
+    const prevCharacter = characterArray[prevIndex];
+    const nextCharacter = characterArray[nextIndex];
+
     // Get and save character breed data
     const BreedData = await getBreedData(character.breed);
     console.log(BreedData);
     const characterBreedData = BreedData[0];
-    
+
     // Get and save character breed images
     const characterImages = await getBreedImages(characterBreedData.id);
     console.log("breed data:"+characterBreedData.name);
-    res.render('character.njk', { characterBreedData, character, characterImages, characters });
+    res.render('character.njk', { prevCharacter, nextCharacter, characterBreedData, character, characterImages, characters });
   } else {
     res.status(404).send('Character not found');
   }
