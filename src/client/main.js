@@ -12,10 +12,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
 document.querySelector("#app").innerHTML = `
   <div>
     <a href="https://github.com/catbyte-io/whimsical-whiskers" target="_blank">
-      <img src="/whiskers_blue.png" class="logo" alt="Whisker logo" />
+      <img src="/whiskers_blue.png" class="logo mint" alt="Whisker logo" />
     </a>
     <a href="https://catbyte.dev" target="_blank">
-      <img src="${grayPawLogo}" class="logo vanilla" alt="Gray Paw logo" />
+      <img src="${grayPawLogo}" class="logo mint" alt="Gray Paw logo" />
     </a>
     <h1>Hello Vite!</h1>
     <div class="card">
