@@ -127,6 +127,12 @@ ul {
   animation: fade-in 2s linear;
 }
 
+/* Element for page loader paw animation */
+.page-loader {
+  background-size: cover;
+  position: absolute;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -217,11 +223,12 @@ button.in-menu:hover {
   }
 }
 
+/* Fade for mouse chaser paw prints */
 @keyframes fade-out {
   from {
-      opacity: 5;
+      opacity: 0;
   }
   to {
-      opacity: 0;
+      opacity: 5;
   }
 }
