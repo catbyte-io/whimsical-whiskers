@@ -1,6 +1,7 @@
+/* Define custom font */
 @font-face {
     font-family: 'Ubuntu';
-    src: url('../assets/fonts/Ubuntu-Regular.ttf') format('truetype');
+    src: url('../../public/fonts/Ubuntu/Ubuntu-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
