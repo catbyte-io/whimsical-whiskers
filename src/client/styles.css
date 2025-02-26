@@ -1,3 +1,4 @@
+/* Adapted from default vite-express css */
 :root {
   font-family: Ubuntu, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -34,12 +35,17 @@ body {
 
 footer {
   bottom: 0;
+  font-size: .75em;
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
+
+i {
+  font-size: 4em;
+} 
 
 main {
   /* Make sure main content fills the page */
@@ -129,8 +135,14 @@ ul {
 
 /* Element for page loader paw animation */
 .page-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
   background-size: cover;
   position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 button {
