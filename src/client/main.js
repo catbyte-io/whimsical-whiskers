@@ -2,7 +2,7 @@ import "./styles.css";
 
 import { pageLoader } from "./paws.js";
 import { paddingPaws } from "./mouse-chase.js";
-import { setupCounter } from "./counter.js";
+import { setupFind } from "./find.js";
 import grayPawLogo from "./PawSiren.png";
 
 // Enable mouse follower
@@ -25,9 +25,9 @@ document.querySelector("#app").innerHTML = `
       <button id="find" type="button"></button>
     </div>
     <p class="read-the-docs">
-      Enter your zipcode to find local pets to adopt
+      Enter your zipcode to find pets to adopt at a local center
     </p>
   </div>
 `;
 
-setupCounter(document.querySelector("#counter"));
+setupFind(document.querySelector("#find"));
