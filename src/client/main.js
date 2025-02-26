@@ -1,5 +1,6 @@
 import "./styles.css";
 
+import { pageLoader } from "./paws.js";
 import { paddingPaws } from "./mouse-chase.js";
 import { setupCounter } from "./counter.js";
 import grayPawLogo from "./PawSiren.png";
@@ -7,6 +8,7 @@ import grayPawLogo from "./PawSiren.png";
 // Enable mouse follower
 document.addEventListener('DOMContentLoaded', (event) => {
   paddingPaws();
+  pageLoader();
 });
 
 document.querySelector("#app").innerHTML = `
@@ -17,12 +19,13 @@ document.querySelector("#app").innerHTML = `
     <a href="https://catbyte.dev" target="_blank">
       <img src="${grayPawLogo}" class="logo mint" alt="Gray Paw logo" />
     </a>
-    <h1>Hello Vite!</h1>
+    <h1>Adopt Me!</h1>
     <div class="card">
-      <button id="counter" type="button"></button>
+      <input type="text" id="zipCode" placeholder="Enter your zipcode">
+      <button id="find" type="button"></button>
     </div>
     <p class="read-the-docs">
-      Click on the Vite logo to learn more
+      Enter your zipcode to find local pets to adopt
     </p>
   </div>
 `;
