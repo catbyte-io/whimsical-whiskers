@@ -5,7 +5,7 @@ import { paddingPaws } from "./mouse-chase.js";
 import { setupFind } from "./find.js";
 import grayPawLogo from "./PawSiren.png";
 
-// Enable mouse follower
+// Enable mouse follower and page loader
 document.addEventListener('DOMContentLoaded', (event) => {
   paddingPaws();
   pageLoader();
