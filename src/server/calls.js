@@ -9,8 +9,7 @@ dotenv.config();
 const apiKey = process.env.CAT_API_KEY;
 
 // Define URL parts
-axios.defaults.baseURL = "https://api.thecatapi.com/v1/"
-axios.defaults.headers.common['x-api-key'] = apiKey;
+const baseUrl = "https://api.thecatapi.com/v1/"
 
 // Warrior cats character data
 const characters = {
@@ -24,11 +23,14 @@ const characters = {
 async function getBreedData(breed) {
   try {
     const response = await axios.get(
-      '/breeds/search?',
+      `${baseUrl}/breeds/search?`,
       { params: {
           name: breed,
           limit: 1,
-      }}
+      },
+        headers: {
+          'x-api-key': apiKey,
+        }}
     );
     return response.data;
   } catch (error) {
@@ -40,7 +42,7 @@ async function getBreedData(breed) {
 async function getBreedImages(breed) {
   try {
     const response = await axios.get(
-      '/images/search?',
+      `${baseUrl}/images/search?`,
       { params: {
           breed_ids: breed,
           limit: 10,
