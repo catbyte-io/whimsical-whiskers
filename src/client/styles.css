@@ -1,6 +1,5 @@
 /* Adapted from default vite-express css */
 :root {
-  font-family: Ubuntu, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -25,6 +24,7 @@ a:hover {
 }
 
 body {
+  font-family: 'Ubuntu', system-ui, Avenir, Helvetica, Arial, sans-serif !important;
   margin: 0;
   display: flex;
   flex-direction: column;
