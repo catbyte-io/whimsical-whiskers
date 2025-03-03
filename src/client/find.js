@@ -32,7 +32,7 @@ async function findPets(zipcode) {
             { params: {
                 type: 'Cat',
                 location: zipcode,
-                limit: '6',
+                limit: '10',
 
             },
               headers: {
@@ -51,15 +51,34 @@ function setupFind(element) {
     // Button text
     element.innerHTML = 'Find my new pet';
 
+    // Get the photo element
+    const animalProfile = document.getElementById('animalProfile');
+
     // Listen for button click
     element.addEventListener("click", async () => {
+        // Clear data from animalProfile to start fresh
+        animalProfile.innerHTML = '';
+
         // Obtain the input value for the zipcode
         const zipCode = document.querySelector('#zipCode').value;
 
         // If user has input a zipcode when the button is clicked
         if (zipCode) {
-            const petData = await findPets(zipCode);
-            console.log(petData);
+            const animalData = await findPets(zipCode);
+            console.log(animalData);
+
+            // Display animal data
+            if (animalData && animalData.lenth > 0) {
+                const animal = animalData.animals[0];
+                console.log(animal);
+                const photoUrls = animal.photos;
+                if (photoUrls && photoUrls.length > 0) {
+                    let animalPhoto = document.createElement('img');
+                    animalPhoto.src = photoUrls[0].small;
+                    animalPhoto.className = 'profile-photo';
+                    animalProfile.appendChild(animalPhoto);
+                }
+            }
         }
     });
 }
