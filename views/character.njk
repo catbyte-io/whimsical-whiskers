@@ -3,21 +3,23 @@
 {% block page_title %}{{ character.name }}{% endblock page_title %}
 
 {% block content %}
-    <table class="center">
-        <tr>
-            <td>
-                <button class="button icon"><a href="{{ prevCharacter.link }}"><i class="bi bi-arrow-left"></i></a></button>
-            </td>
-            <td>
-                <h1>{{ character.name }}</h1>
-                <h3 class="accent mint">{{ characterBreedData.name }}</h3>
-                <p>{{ characterBreedData.temperament }}</p>
-            </td>
-            <td>
-                <button class="button icon"><a href="{{ nextCharacter.link }}"><i class="bi bi-arrow-right"></i></a></button>
-            </td>
-        </tr>
-    </table>
+    <div class="center main-focus">
+        <table class="center">
+            <tr>
+                <td>
+                    <button class="button icon"><a href="{{ prevCharacter.link }}"><i class="bi bi-arrow-left"></i></a></button>
+                </td>
+                <td>
+                    <h1>{{ character.name }}</h1>
+                    <h3 class="accent mint">{{ characterBreedData.name }}</h3>
+                    <p>{{ characterBreedData.temperament }}</p>
+                </td>
+                <td>
+                    <button class="button icon"><a href="{{ nextCharacter.link }}"><i class="bi bi-arrow-right"></i></a></button>
+                </td>
+            </tr>
+        </table>
+    </div>
     <div class="row">
         {% for image in characterImages %}
             {% if loop.index0 % 4 == 0 %}
