@@ -42,8 +42,9 @@ app.get('/get-token', async (req, res) => {
 app.get('/', (req, res) => {
   // Pass character dictionary to object to access values
   const characterArray = Object.values(characters);
+  const neonCat = "/NeonAncient.png";
   res.render('index.njk', 
-    { characters: characterArray },
+    { characters: characterArray, neonCat },
   );
   console.log(characters);
 });
