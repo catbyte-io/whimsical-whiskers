@@ -9,7 +9,7 @@ dotenv.config();
 const apiKey = process.env.CAT_API_KEY;
 
 // Define URL parts
-const baseUrl = "https://api.thecatapi.com/v1/"
+const baseUrl = "https://api.thecatapi.com/v1"
 
 // Warrior cats character data
 const characters = {
@@ -46,6 +46,9 @@ async function getBreedImages(breed) {
       { params: {
           breed_ids: breed,
           limit: 10,
+      },
+      headers: {
+        'x-api-key': apiKey,
       }}
     );
     return response.data;
