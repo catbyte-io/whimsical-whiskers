@@ -4,7 +4,7 @@
 function paddingPaws() {
     // Track last time and set minimum interval to show paws
     let lastPawTime = 0;
-    const minInterval = 200;
+    const minInterval = 500;
 
     document.addEventListener('mousemove', function(e) {
         // Get the current time and check if the minimum inverval has passed

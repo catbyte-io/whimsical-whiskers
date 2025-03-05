@@ -5,10 +5,15 @@
 {% block content %}
 <h1 class="center">Whimsical Whiskers</h1>
 <h3 class="center accent mint">Warrior Cat Characters</h3>
+<span>
+    <img class="main-focus center" src="{{ neonCat }}">
+</span>
+<div class="card">
 <h5 class="center">Select a character to view breed data and images</h5>
 <ul>
     {% for character in characters %}
-        <li><a href="{{ character.link }}">{{ character.name }}</a></li>
+        <li><button class="button icon"><a href="{{ character.link }}">{{ character.name }}</a></button></li>
     {% endfor %}
 </ul>
+</div>
 {% endblock content %}

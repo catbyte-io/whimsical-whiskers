@@ -1,5 +1,5 @@
+/* Adapted from default vite-express css */
 :root {
-  font-family: Ubuntu, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -24,6 +24,7 @@ a:hover {
 }
 
 body {
+  font-family: 'Ubuntu', system-ui, Avenir, Helvetica, Arial, sans-serif !important;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -34,6 +35,7 @@ body {
 
 footer {
   bottom: 0;
+  font-size: .75em;
 }
 
 h1 {
@@ -41,9 +43,19 @@ h1 {
   line-height: 1.1;
 }
 
+i {
+  font-size: 4em;
+} 
+
 main {
   /* Make sure main content fills the page */
   flex: 1;
+}
+
+table {
+  width: 100%;
+  padding-left: auto;
+  padding-right: auto;
 }
 
 ul {
@@ -129,8 +141,24 @@ ul {
 
 /* Element for page loader paw animation */
 .page-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
   background-size: cover;
   position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.profile-photo {
+  width: 500px;
+  height: auto;
+}
+
+.main-focus {
+  width: 100%;
+  height: auto;
 }
 
 button {

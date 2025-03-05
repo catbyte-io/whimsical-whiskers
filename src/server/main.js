@@ -3,6 +3,7 @@ import ViteExpress from "vite-express";
 import nunjucks from 'nunjucks';
 
 import { characters, getBreedData, getBreedImages } from "./calls.js";
+import { getToken } from "./token.js";
 
 // Define server application
 const app = express();
@@ -26,12 +27,24 @@ const server = app.listen(3000, "0.0.0.0", () =>
 ViteExpress.bind(app, server);
 
 // Routes
+
+// Get token for Petfinder API
+app.get('/get-token', async (req, res) => {
+  try {
+    const tokenData = await getToken();
+    res.json({ access_token: tokenData.access_token, token_type: tokenData.token_type, expires_in: tokenData.expires_in });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 // Home
 app.get('/', (req, res) => {
   // Pass character dictionary to object to access values
   const characterArray = Object.values(characters);
+  const neonCat = "/NeonAncient.png";
   res.render('index.njk', 
-    { characters: characterArray },
+    { characters: characterArray, neonCat },
   );
   console.log(characters);
 });
