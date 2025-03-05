@@ -11,12 +11,25 @@ const baseUrl = 'https://api.petfinder.com/v2/animals';
 async function fetchToken() {
     try {
         const response = await axios.get(
-            `${appUrl}:${appPort}/get-token`,
+            `${appUrl}:${appPort}/api/get-token`,
         );
         return response.data;
     } catch (error) {
         console.error('Could not fetch token from the server', error);
     }
+}
+
+// Validate zipcode with the server
+async function validateZip(zipcode) {
+    try {
+        const response = await axios.get(
+            `${appUrl}:${appPort}/api/${zipcode}`,
+        );
+        return response.data;
+    } catch (error) {
+        console.error('Invalid zipcode', error);
+    }
+
 }
 
 // Make a request to the Petfinder API based on zipcode
@@ -59,16 +72,22 @@ function setupFind(element) {
         // Clear data from animalProfile to start fresh
         animalProfile.innerHTML = '';
 
+        var animalData;
+
         // Obtain the input value for the zipcode
         const zipCode = document.querySelector('#zipCode').value;
 
+        // Validate
+        const validatedZip = await validateZip(zipCode);
+        console.log(validatedZip);
+
         // If user has input a zipcode when the button is clicked
-        if (zipCode) {
-            const animalData = await findPets(zipCode);
+        if (zipCode && validatedZip.is_valid) {
+            animalData = await findPets(zipCode);
             console.log(animalData);
 
             // Display animal data
-            if (animalData && animalData.lenth > 0) {
+            if (animalData && animalData.animals && animalData.animals.length > 0) {
                 const animal = animalData.animals[0];
                 console.log(animal);
                 const photoUrls = animal.photos;
