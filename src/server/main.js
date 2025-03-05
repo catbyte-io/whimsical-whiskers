@@ -4,6 +4,7 @@ import nunjucks from 'nunjucks';
 
 import { characters, getBreedData, getBreedImages } from "./calls.js";
 import { getToken } from "./token.js";
+import { validateZip } from "./validate.js";
 
 // Define server application
 const app = express();
@@ -29,10 +30,21 @@ ViteExpress.bind(app, server);
 // Routes
 
 // Get token for Petfinder API
-app.get('/get-token', async (req, res) => {
+app.get('/api/get-token', async (req, res) => {
   try {
     const tokenData = await getToken();
     res.json({ access_token: tokenData.access_token, token_type: tokenData.token_type, expires_in: tokenData.expires_in });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+// Validate zipcode input
+app.get('/api/:zipcode', async (req, res) => {
+  const zip = req.params.zipcode;
+  try {
+    const isValidZip = await validateZip(zip);
+    res.json({ is_valid: isValidZip });
   } catch (error) {
     res.status(500).send(error);
   }
