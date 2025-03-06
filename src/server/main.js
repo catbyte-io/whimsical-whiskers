@@ -3,7 +3,8 @@ import ViteExpress from "vite-express";
 import nunjucks from 'nunjucks';
 
 import { characters, getBreedData, getBreedImages } from "./calls.js";
-import { getToken } from "./token.js";
+import { findPets } from "./finder.js";
+import { validateZip } from "./validate.js";
 
 // Define server application
 const app = express();
@@ -28,11 +29,23 @@ ViteExpress.bind(app, server);
 
 // Routes
 
-// Get token for Petfinder API
-app.get('/get-token', async (req, res) => {
+// Endpoint for pets from Petfinder API
+app.get('/api/fetch/:zipcode', async (req, res) => {
+  const zipCode = req.params.zipcode;
   try {
-    const tokenData = await getToken();
-    res.json({ access_token: tokenData.access_token, token_type: tokenData.token_type, expires_in: tokenData.expires_in });
+    const petData = await findPets(zipCode);
+    res.json({ animals: petData.animals });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+// Validate zipcode input
+app.get('/api/:zipcode', async (req, res) => {
+  const zip = req.params.zipcode;
+  try {
+    const isValidZip = await validateZip(zip);
+    res.json({ is_valid: isValidZip });
   } catch (error) {
     res.status(500).send(error);
   }

@@ -47,6 +47,10 @@ i {
   font-size: 4em;
 } 
 
+li {
+  font-size: 1.5em;
+}
+
 main {
   /* Make sure main content fills the page */
   flex: 1;
