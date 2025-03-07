@@ -22,6 +22,14 @@ document.querySelector("#app").innerHTML = `
     <h1>Adopt Me!</h1>
     <div id="animalProfile">
     </div>
+    <div>
+      <table id="pageNavigation">
+        <td id="prevPage">
+        </td>
+        <td id="nextPage">
+        </td>
+      </table>
+    </div>
     <div class="card">
       <input type="text" id="zipCode" placeholder="Enter your zipcode">
       <button id="find" type="button"></button>
