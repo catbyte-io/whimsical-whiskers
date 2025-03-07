@@ -140,7 +140,7 @@ ul {
   position: absolute;
   opacity: 0.5;
   pointer-events: none;
-  animation: fade-in 2s linear;
+  animation: fade-out 2s linear;
 }
 
 /* Element for page loader paw animation */
@@ -258,9 +258,9 @@ button.in-menu:hover {
 /* Fade for mouse chaser paw prints */
 @keyframes fade-out {
   from {
-      opacity: 0;
+      opacity: 1;
   }
   to {
-      opacity: 5;
+      opacity: 0;
   }
 }
