@@ -57,6 +57,12 @@ function updateAnimalProfile(animal) {
     let animalName = document.createElement('h3');
     animalName.innerHTML = `${name}`;
     animalProfile.appendChild(animalName);
+
+    // Add contact info
+    const contact = animal.contact;
+    let contactInfo = document.createElement('a');
+    contactInfo.innerHTML = `Contact: ${contact.email}`;
+    animalProfile.appendChild(contactInfo);
 };
 
 // Set up the button to find pets
@@ -128,7 +134,7 @@ function setupFind(element) {
                     setCounter((counter + 1) % numAnimals);
                     updateAnimalProfile(animalData.animals[counter]);
                 });
-                
+
                 // Display the first animal
                 updateAnimalProfile(animalData.animals[counter]);
             }
