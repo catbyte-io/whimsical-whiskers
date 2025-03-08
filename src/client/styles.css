@@ -12,19 +12,23 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-}
+
+  /* Override stubborn Bootstrap vars */
+  --bs-body-font-family: 'Ubuntu', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --bs-link-color: #10bcf0;
+}  
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--bs-link-color); 
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #8cddf6;
 }
 
 body {
-  font-family: 'Ubuntu', system-ui, Avenir, Helvetica, Arial, sans-serif !important;
+  font-family: var(--bs-body-font-family);
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -257,10 +261,10 @@ button.in-menu:hover {
 
 /* Fade for mouse chaser paw prints */
 @keyframes fade-out {
-  from {
-      opacity: 1;
+  from { 
+    opacity: 1;
   }
   to {
-      opacity: 0;
+    opacity: 0;
   }
 }
