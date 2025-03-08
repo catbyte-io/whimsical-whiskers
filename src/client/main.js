@@ -20,11 +20,13 @@ document.querySelector("#app").innerHTML = `
       <img src="${grayPawLogo}" class="logo mint" alt="Gray Paw logo" >
     </a>
     <h1>Adopt Me!</h1>
-    <div id="animalProfile">
-    </div>
     <div>
       <table id="pageNavigation">
         <td id="prevPage">
+        </td>
+        <td>
+          <div id="animalProfile">
+          </div>
         </td>
         <td id="nextPage">
         </td>
@@ -38,6 +40,9 @@ document.querySelector("#app").innerHTML = `
       Enter your zipcode to find local cats awaiting adoption
     </p>
   </div>
+  <footer>
+    <p>Powered by the <a href="https://www.petfinder.com/developers/v2/docs/#using-the-api">Petfinder API</a>.</p>
+  </footer>
 `;
 
 setupFind(document.querySelector("#find"));
