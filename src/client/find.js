@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import noPhoto from '../../public/noPhoto.jpg'
+import noPhoto from './noPhoto.jpg';
 
 // Load environment variables
 const appUrl = import.meta.env.VITE_APP_URL;
@@ -90,7 +90,7 @@ function updateAnimalProfile(animal) {
         let phoneColumn = document.createElement('td');
         let contactPhone = document.createElement('a');
         contactPhone.href = `tel:${centerPhone}`;
-        contactPhone.innerHTML = `${centerPhone}`;
+        contactPhone.innerHTML = `Call: ${centerPhone}`;
         phoneColumn.appendChild(contactPhone);
         contactRow1.appendChild(phoneColumn);
     }
@@ -101,7 +101,7 @@ function updateAnimalProfile(animal) {
         let emailColumn = document.createElement('td');
         let contactEmail = document.createElement('a');
         contactEmail.href = `mailto:${centerEmail}`;
-        contactEmail.innerHTML = `${centerEmail}`;
+        contactEmail.innerHTML = `Email: ${centerEmail}`;
         emailColumn.appendChild(contactEmail);
         contactRow1.appendChild(emailColumn);
     }
