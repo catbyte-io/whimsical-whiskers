@@ -4,7 +4,7 @@
 function paddingPaws() {
     // Track last time and set minimum interval to show paws
     let lastPawTime = 0;
-    const minInterval = 500;
+    const minInterval = 300;
 
     document.addEventListener('mousemove', function(e) {
         // Get the current time and check if the minimum inverval has passed
@@ -33,7 +33,7 @@ function paddingPaws() {
         // Get center of the div
         let pawCenter = {
             x: pawBoundingRect.left + pawBoundingRect.width/2,
-            y: pawBoundingRect.right + pawBoundingRect.height/2
+            y: pawBoundingRect.bottom + pawBoundingRect.height/2
         };
         // Get angle and rotate
         let angle = Math.atan2(e.pageX - pawCenter.x, - (e.pageY - pawCenter.y)) * (180 / Math.PI);
