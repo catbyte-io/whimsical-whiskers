@@ -6,7 +6,7 @@ import noPhoto from './noPhoto.jpg';
 const appUrl = import.meta.env.VITE_APP_URL;
 const appPort = import.meta.env.VITE_APP_PORT;
 
-// Validate zipcode with the server
+// Validate zipcode with our server
 async function validateZip(zipcode) {
     try {
         const response = await axios.get(
@@ -19,34 +19,42 @@ async function validateZip(zipcode) {
 
 }
 
-// Get pets from the server
-async function fetchPets(zipcode) {
-    const validatedZip = await validateZip(zipcode);
-    console.log(validatedZip);
+// Get animals from our server
+async function fetchAnimals(zipcode) {
+    // Identify our element to contain any error messages
+    const errorMessage = document.getElementById('errorMessage');
 
-    // If user has input a zipcode when the button is clicked
-    if (zipcode && validatedZip.is_valid) {
+    // Validate the zipcode using custom validator
+    const validatedZip = await validateZip(zipcode);
+
+    // If user has input a zipcode when the button is clicked then fetch animals
+    if (validatedZip && validatedZip.is_valid) {
         try {
             const response = await axios.get(
                 `${appUrl}:${appPort}/api/fetch/${zipcode}`,
             );
             return response.data;
         } catch (error) {
-            console.error('Could not fetch pets from the server', error);
+            console.error('Could not fetch animals from the server', error);
         }
-    }
-    else {
-        return ('Not valid zipcode');
+    } else if (!validatedZip.is_valid) {
+        errorMessage.innerHTML = 'Please enter a valid zip';
     }
 }
 
 // Update the animal profile with new data
 function updateAnimalProfile(animal) {
-    // Clear the profile to start fresh
+    const animalProfile = document.getElementById('animalProfile');
+    const errorMessage = document.getElementById('errorMessage');
+
+    // Clear data from animalProfile to start fresh
     animalProfile.innerHTML = '';
 
+    // Clear error messages
+    errorMessage.innerHTML = '';
+
     // Add animal profile photo
-    let animalPhoto = document.createElement('img');
+    const animalPhoto = document.createElement('img');
     animalPhoto.className = 'profile-photo';
     const photoUrls = animal.photos;
     if (photoUrls && photoUrls.length > 0) {
@@ -59,7 +67,7 @@ function updateAnimalProfile(animal) {
 
     // Add animal name
     const name = animal.name;
-    let animalName = document.createElement('h3');
+    const animalName = document.createElement('h3');
     animalName.innerHTML = `${name}`;
     animalProfile.appendChild(animalName);
 
@@ -68,128 +76,150 @@ function updateAnimalProfile(animal) {
     const contact = animal.contact;
 
     // Adoption center address
-    let centerCity = contact.address.city;
-    let centerState = contact.address.state;
+    const centerCity = contact.address.city;
+    const centerState = contact.address.state;
     if (centerCity && centerState) {
-        let centerAddr = document.createElement('h4');
+        const centerAddr = document.createElement('h4');
         centerAddr.innerHTML = `${centerCity}, ${centerState}`;
         animalProfile.appendChild(centerAddr);
     }
 
     // Create table and rows to hold info
-    let contactInfo = document.createElement('table');
-    let contactRow1 = document.createElement('tr');
+    const contactInfo = document.createElement('table');
+    const contactRow1 = document.createElement('tr');
 
     contactInfo.appendChild(contactRow1);
 
     /* Create table data elements */
 
     // Adoption center phone
-    let centerPhone = contact.phone;
+    const centerPhone = contact.phone;
     if (centerPhone) {
-        let phoneColumn = document.createElement('td');
-        let contactPhone = document.createElement('a');
+        const phoneColumn = document.createElement('td');
+        const contactPhone = document.createElement('a');
         contactPhone.href = `tel:${centerPhone}`;
-        contactPhone.innerHTML = `Call: ${centerPhone}`;
+        contactPhone.innerHTML = `${centerPhone}`;
         phoneColumn.appendChild(contactPhone);
+        phoneColumn.className = 'left';
         contactRow1.appendChild(phoneColumn);
     }
 
     // Adoption center email
-    let centerEmail = contact.email;
+    const centerEmail = contact.email;
     if (centerEmail) {
-        let emailColumn = document.createElement('td');
-        let contactEmail = document.createElement('a');
+        const emailColumn = document.createElement('td');
+        const contactEmail = document.createElement('a');
         contactEmail.href = `mailto:${centerEmail}`;
-        contactEmail.innerHTML = `Email: ${centerEmail}`;
+        contactEmail.innerHTML = `Email`;
         emailColumn.appendChild(contactEmail);
+        emailColumn.className = 'left';
         contactRow1.appendChild(emailColumn);
     }
 
-    // Add the contact info table to the page
-    animalProfile.appendChild(contactInfo);
+     // Add the contact info table to the page
+     animalProfile.appendChild(contactInfo);
+
+    // Adoption URL
+    const animalUrl = animal.url;
+    if (animalUrl) {
+        const centerLink = document.createElement('a');
+        centerLink.href = `${animalUrl}`;
+        centerLink.innerHTML = 'Go to adoption page';
+        animalProfile.appendChild(centerLink);
+    }
+
 };
 
-// Set up the button to find pets
-function setupFind(element) {
-    // Button text
-    element.innerHTML = 'Find my new pet';
+// Evoke the Petfinder API to display animals for adoption
+async function displayAnimals() {
+    // Set variables to start new
+    let counter = 0;
+    let animalData = {};
 
-    // Get the photo element
-    const animalProfile = document.getElementById('animalProfile');
+    // Obtain the input value for the zipcode
+    const zipCode = document.querySelector('#zipCode').value;
 
-    // Listen for button click
-    element.addEventListener("click", async () => {
-        // Clear data from animalProfile to start fresh
-        animalProfile.innerHTML = '';
+    // Validate
+    if (zipCode) {
+        // Fetch pets from our API endpoint
+        animalData = await fetchAnimals(zipCode);
+        console.log(animalData);
 
-        // Set variables to start new
-        var counter = 0;
-        var animalData;
-
-        // Obtain the input value for the zipcode
-        const zipCode = document.querySelector('#zipCode').value;
-
-        // Validate
-        if (zipCode) {
-            // Fetch pets from our API endpoint
-            animalData = await fetchPets(zipCode);
-            console.log(animalData);
-
+        // Display animal data if there are animals to show
+        if (animalData && animalData.animals && animalData.animals.length > 0) {
             // Get the number of animals found
             const numAnimals = animalData.animals.length;
 
-            // Display animal data if there are animals to show
-            if (animalData && animalData.animals && numAnimals > 0) {
-                // Create navigation buttons
-                let prevButton = document.createElement('button');
-                let nextButton = document.createElement('button');
+            // Clear existing navigation buttons to avoid duplication
+            const prevPage = document.getElementById('prevPage');
+            const nextPage = document.getElementById('nextPage');
+            prevPage.innerHTML = '';
+            nextPage.innerHTML = '';
 
-                prevButton.className = 'icon';
-                nextButton.className = 'icon';
+            // Create navigation buttons
+            const prevButton = document.createElement('button');
+            const nextButton = document.createElement('button');
 
-                let prevIcon = document.createElement('i');
-                let nextIcon = document.createElement('i');
+            prevButton.className = 'icon';
+            nextButton.className = 'icon';
 
-                prevIcon.className = 'bi bi-caret-left-fill';
-                nextIcon.className = 'bi bi-caret-right-fill';
+            const prevIcon = document.createElement('i');
+            const nextIcon = document.createElement('i');
 
-                prevButton.appendChild(prevIcon);
-                nextButton.appendChild(nextIcon);
+            prevIcon.className = 'bi bi-caret-left-fill';
+            nextIcon.className = 'bi bi-caret-right-fill';
 
-                // Add nav buttons to page
-                prevPage = document.getElementById('prevPage');
-                let prev = document.createElement('p');
-                prev.innerHTML = 'Prev';
-                nextPage = document.getElementById('nextPage');
-                let next = document.createElement('p');
-                next.innerHTML = 'Next';
+            prevButton.appendChild(prevIcon);
+            nextButton.appendChild(nextIcon);
 
-                prevPage.appendChild(prevButton);
-                prevPage.appendChild(prev);
-                nextPage.appendChild(nextButton);
-                nextPage.appendChild(next);
+            // Add nav buttons to page
+            const prev = document.createElement('p');
+            prev.innerHTML = 'Prev';
+            const next = document.createElement('p');
+            next.innerHTML = 'Next';
 
-                /* Adapted from the default Vite file 'counter.js' */
+            prevPage.appendChild(prevButton);
+            prevPage.appendChild(prev);
+            nextPage.appendChild(nextButton);
+            nextPage.appendChild(next);
 
-                const setCounter = (count) => {
-                  counter = count;
-                };
+            /* Adapted from the default Vite file 'counter.js' */
 
-                /* Listen for the navigation arrows to be clicked to display the next animal profile, 
-                 using the value of counter to access different ones*/
-                prevButton.addEventListener("click", () => {
-                    setCounter((counter - 1 + numAnimals) % numAnimals);
-                    updateAnimalProfile(animalData.animals[counter]);
-                });
-                nextButton.addEventListener("click", () => {
-                    setCounter((counter + 1) % numAnimals);
-                    updateAnimalProfile(animalData.animals[counter]);
-                });
+            const setCounter = (count) => {
+              counter = count;
+            };
 
-                // Display the first animal
+            /* Listen for the navigation arrows to be clicked to display the next animal profile, 
+             using the value of counter to access different ones*/
+            prevButton.addEventListener("click", () => {
+                setCounter((counter - 1 + numAnimals) % numAnimals);
                 updateAnimalProfile(animalData.animals[counter]);
-            }
+            });
+            nextButton.addEventListener("click", () => {
+                setCounter((counter + 1) % numAnimals);
+                updateAnimalProfile(animalData.animals[counter]);
+            });
+
+            // Display the first animal
+            updateAnimalProfile(animalData.animals[counter]);
+        }
+    }
+} 
+
+// Set up the button to find pets
+function setupFind(element1, element2) {
+    // Button text
+    element1.innerHTML = 'Find my new pet';
+
+    // Listen for button click
+    element1.addEventListener("click", async () => {
+        displayAnimals();
+    });
+
+    // Listen for 'Enter' press
+    element2.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            displayAnimals();
         }
     });
 }
