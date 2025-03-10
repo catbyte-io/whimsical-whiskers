@@ -12,19 +12,23 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-}
+
+  /* Override stubborn Bootstrap vars */
+  --bs-body-font-family: 'Ubuntu', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --bs-link-color: #10bcf0;
+}  
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--bs-link-color); 
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #8cddf6;
 }
 
 body {
-  font-family: 'Ubuntu', system-ui, Avenir, Helvetica, Arial, sans-serif !important;
+  font-family: var(--bs-body-font-family);
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -34,6 +38,7 @@ body {
 }
 
 footer {
+  /* Keep footer at the bottom and control text size */
   bottom: 0;
   font-size: .75em;
 }
@@ -45,7 +50,7 @@ h1 {
 
 i {
   font-size: 4em;
-} 
+}
 
 li {
   font-size: 1.5em;
@@ -66,6 +71,13 @@ ul {
   list-style-type: none;
 }
 
+#animalProfile img {
+  max-width: 75%;
+  height: auto;
+  display: block;
+  margin: auto;
+}
+
 #app {
   max-width: 1280px;
   margin: 0 auto;
@@ -73,8 +85,24 @@ ul {
   text-align: center;
 }
 
+#appTable {
+  max-width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  text-align: left;
+}
+
 #content {
   margin-top: 3rem;
+}
+
+#pageNavigation {
+  max-width: 100%;
+  display: flex;
+  text-align: center;
+  margin: 0 auto;
 }
 
 .logo-main {
@@ -117,8 +145,8 @@ ul {
   padding: 0 4px;
 }
 
-/* Four columns */
 .column {
+  /* Each column takes a quarter of the space */
   flex: 25%;
   max-width: 25%;
   padding: 0 4px;
@@ -135,24 +163,21 @@ ul {
   width: 30px;
   height: 30px;
   background: url(PawSiren.png);
-  /* background-color: #00f2f5;*/
   background-size: cover;
   position: absolute;
   opacity: 0.5;
   pointer-events: none;
-  animation: fade-in 2s linear;
+  animation: fade-out 2s linear;
 }
 
 /* Element for page loader paw animation */
 .page-loader {
   display: flex;
-  justify-content: center;
   align-items: center;
-  vertical-align: middle;
-  background-size: cover;
+  padding: 0;
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
 }
 
 .profile-photo {
@@ -161,8 +186,29 @@ ul {
 }
 
 .main-focus {
+  /* Have the main focus fill the width of the parent element */
   width: 100%;
   height: auto;
+}
+
+/* Image container so we can do overlays */
+.image-container {
+  display: inline-block;
+}
+
+.left {
+  text-align: left;
+}
+
+/* Character list items */
+.list-item {
+  flex: 100%;
+  max-width: 100%;
+  font-size: 1.5em;
+}
+
+.center {
+  object-position: center;
 }
 
 button {
@@ -173,7 +219,6 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
-  cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
@@ -183,7 +228,6 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-
 /* For menu icons */
 button.icon {
   background-color: transparent;
@@ -196,13 +240,8 @@ button.icon {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   vertical-align: middle;
 }
-
 button.in-menu:hover {
   color: #e6e3e5;
-}
-
-.center {
-  object-position: center;
 }
 
 /* Custom scroll bar */
@@ -239,11 +278,43 @@ button.in-menu:hover {
   }
 }
 
+/* Responsive layout for homescreen character links */
+@media screen and (min-width: 800px) {
+  .image-container {
+    position: relative;
+    height: 100%;
+  }
+  .image-overlay {
+    display: block;
+    position: absolute;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.57);
+  }
+  .list-item {
+    padding-top: 15%;
+    flex: 50%;
+    max-width: 50%;
+    font-size: 2em;
+  }
+  .list-item a {
+    color: #f9f9f9;
+  }
+  .list-item a:hover {
+    color: var(--bs-link-color);
+  }
+}
+
 /* Responsive grid layout (two instead of four) */
 @media screen and (max-width: 800px) {
   .column {
     flex: 50%;
     max-width: 50%;
+  }
+  #appTable {
+    max-width: 100%;
   }
 }
 
@@ -253,14 +324,17 @@ button.in-menu:hover {
     flex: 100%;
     max-width: 100%;
   }
+  #appTable {
+    max-width: 100%;
+  }
 }
 
 /* Fade for mouse chaser paw prints */
 @keyframes fade-out {
-  from {
-      opacity: 0;
+  from { 
+    opacity: 1;
   }
   to {
-      opacity: 5;
+    opacity: 0;
   }
 }

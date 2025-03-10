@@ -5,15 +5,24 @@
 {% block content %}
 <h1 class="center">Whimsical Whiskers</h1>
 <h3 class="center accent mint">Warrior Cat Characters</h3>
-<span>
-    <img class="main-focus center" src="{{ neonCat }}">
-</span>
-<div class="card">
-<h5 class="center">Select a character to view breed data and images</h5>
-<ul>
-    {% for character in characters %}
-        <li><button class="button icon"><a href="{{ character.link }}">{{ character.name }}</a></button></li>
-    {% endfor %}
-</ul>
+<div class="image-container">
+    <span>
+        <img class="main-focus center" src="{{ neonCat }}">
+    </span>
+    <span>
+    <div class="card image-overlay main-focus">
+        <h5 class="center">select a character to view breed data and images</h5>
+        <div class="row">
+            {% for character in characters %}
+                {% if loop.index0 % 1 == 0 %}
+                    {% if not loop.first %}</div>{% endif %}
+                    <div class="list-item">
+                {% endif %}
+                <button class="button icon"><a href="{{ character.link }}">{{ character.name }}</a></button>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+    </span>
 </div>
 {% endblock content %}

@@ -1,7 +1,7 @@
 // Animation for page loads - alternating paw prints
 export function pageLoader() {
     // Create div element and set class to page-loader and set id
-    let loader = document.createElement('div');
+    const loader = document.createElement('div');
     loader.className = 'page-loader';
     loader.id = 'loader';
 
@@ -13,7 +13,7 @@ export function pageLoader() {
     document.body.appendChild(loader);
 
     // Set size for drawing canvas
-    var canvasSize = 200; 
+    const canvasSize = 200; 
 
     // Create p5.js sketch animation (https://p5js.org/reference/p5/p5/)
     function sketch(p) {
@@ -29,19 +29,19 @@ export function pageLoader() {
         };
 
         // Set sizes
-        var pawSize = 12;
-        var beanSize = 7.5; 
+        const pawSize = 12;
+        const beanSize = 7.5; 
 
         // Offset for paw spacing
-        var offset = 35;
+        const offset = 35;
 
         // Starting points of shapes on the canvas
         const xStart = 150;
         const yStart = 175;
 
         // Set variables for paw locations
-        var x = xStart;
-        var y = yStart;
+        let x = xStart;
+        let y = yStart;
 
         // Shapes for individual paws
         function drawPaw(posX, posY) {
@@ -87,7 +87,6 @@ export function pageLoader() {
             // Reset x to simulate alternating paws and avoid going far to the left
             if (x < 110) {
                 x = xStart;
-            
             }
             
             // Reset y to set paw steps at the beginning of the canvas and avoid stepping out of it
@@ -106,5 +105,5 @@ export function pageLoader() {
     // Remove the sketch after 5 seconds
     setTimeout(() => {
         loader.remove();
-    }, 5000);
+    }, 4700);
 }

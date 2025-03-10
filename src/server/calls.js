@@ -1,8 +1,7 @@
-// Axios for API calls
 import axios from 'axios';
+import dotenv from 'dotenv';
 
 // Dotenv for loading environment variables
-import dotenv from 'dotenv';
 dotenv.config();
 
 // Get Cat API key from environment file
@@ -35,6 +34,7 @@ async function getBreedData(breed) {
     return response.data;
   } catch (error) {
       console.error('There was an error fetching breed data:', error);
+      throw error;
   }
 };
 
@@ -54,6 +54,7 @@ async function getBreedImages(breed) {
     return response.data;
   } catch (error) {
     console.error('There was an error fetching cat images:', error);
+    throw error;
   }
 };
 

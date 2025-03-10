@@ -1,11 +1,11 @@
 // Validate that zipcode is input correctly and is valid
-async function validateZip(zipcode) {
+function validateZip(zipcode) {
     // Check that zipcode is a string
     if (typeof zipcode !== 'string') {
         return false;
     }
 
-    // Test zipcode for validity
+    // Test zipcode for validity - returns true or false
     const zipCodePattern = /^\d{5}(-\d{4})?$/;
     return zipCodePattern.test(zipcode);
 }
