@@ -7,11 +7,11 @@ function paddingPaws() {
     const minInterval = 300;
 
     // Track the previous center to calulate the difference between the previous and current center
-    var previousCenter = {
+    let previousCenter = {
         x: null,
         y: null
     };
-    var angle = 0;
+    let angle = 0;
 
     document.addEventListener('mousemove', function(e) {
 
@@ -25,7 +25,7 @@ function paddingPaws() {
         lastPawTime = currentTime;
 
         // Create the div element and add class
-        let paw = document.createElement('div');
+        const paw = document.createElement('div');
         paw.className = 'paw-print';
 
         // Position paw prints at current mouse x coordinate
@@ -38,7 +38,7 @@ function paddingPaws() {
 
         // Get rectangle perimeter and center of the div
         let pawBoundingRect = paw.getBoundingClientRect();
-        var pawCenter = {
+        let pawCenter = {
             x: pawBoundingRect.left + pawBoundingRect.width / 2,
             y: pawBoundingRect.top + pawBoundingRect.height / 2
         };
