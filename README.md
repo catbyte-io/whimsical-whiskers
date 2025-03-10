@@ -10,9 +10,11 @@ While you are here, you can also find cats near you who need a forever home. Typ
 Whimsical Whiskers was created using the create-vite-express npm package. You can find the vite-express repo here: https://github.com/szymmis/vite-express
 
 # Requirements - The application will not work without these
-npm
-API key from the Cat API: https://thecatapi.com/
-A developer account with the Petfinder API with an API key and client secret: https://www.petfinder.com/developers/ 
+-npm
+
+-API key from the Cat API: https://thecatapi.com/
+
+-A developer account with the Petfinder API with an API key and client secret: https://www.petfinder.com/developers/ 
 
 # Getting Started
 To get started, please clone or fork and then clone the repository
