@@ -6,7 +6,7 @@ import { setupFind } from "./find.js";
 import grayPawLogo from "./PawSiren.png";
 
 // Enable mouse follower and page loader
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
   paddingPaws();
   pageLoader();
 });
@@ -20,24 +20,22 @@ document.querySelector("#app").innerHTML = `
       <img src="${grayPawLogo}" class="logo mint" alt="Gray Paw logo" >
     </a>
     <h1>Adopt Me!</h1>
-    <div>
+    <div id="appTable">
       <table id="pageNavigation">
-        <td id="prevPage">
-        </td>
+        <td id="prevPage"></td>
         <td>
-          <div id="animalProfile">
-          </div>
+          <div id="animalProfile"></div>
         </td>
-        <td id="nextPage">
-        </td>
+        <td id="nextPage"></td>
       </table>
     </div>
     <div class="card">
-      <input type="text" id="zipCode" placeholder="Enter your zipcode">
+      <input type="text" id="zipCode" placeholder="Enter your zipcode" required>
       <button id="find" type="button"></button>
+      <div id="errorMessage"></div>
     </div>
     <p class="read-the-docs">
-      Enter your zipcode to find local cats awaiting adoption
+      Enter your zipcode to find local cats awaiting a furever home
     </p>
   </div>
   <footer>
@@ -45,4 +43,4 @@ document.querySelector("#app").innerHTML = `
   </footer>
 `;
 
-setupFind(document.querySelector("#find"));
+setupFind(document.querySelector("#find"), document.querySelector("#zipCode"));
