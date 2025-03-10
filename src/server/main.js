@@ -27,27 +27,31 @@ const server = app.listen(3000, "0.0.0.0", () =>
 // Create bindings
 ViteExpress.bind(app, server);
 
-// Routes
+/* Routes */
 
-// Endpoint for pets from Petfinder API
-app.get('/api/fetch/:zipcode', async (req, res) => {
+// Our endpoint for pets from Petfinder API
+app.get('/api/fetch/:zipcode', async (req, res, next) => {
   const zipCode = req.params.zipcode;
   try {
     const petData = await findPets(zipCode);
-    res.json({ animals: petData.animals });
+    res.json({ animals: petData.animals });// Respond with animal data in json form
   } catch (error) {
-    res.status(500).send(error);
+    // Send error to middleware
+    error.status = 500;
+    next(error);
   }
 });
 
-// Validate zipcode input
-app.get('/api/:zipcode', async (req, res) => {
+// Our endpoint to validate zipcode input
+app.get('/api/:zipcode', (req, res, next) => {
   const zip = req.params.zipcode;
   try {
-    const isValidZip = await validateZip(zip);
-    res.json({ is_valid: isValidZip });
+    const isValidZip = validateZip(zip);
+    res.json({ is_valid: isValidZip }); // Respond with validity in json form
   } catch (error) {
-    res.status(500).send(error);
+    // Send error to middleware
+    error.status = 500;
+    next(error);
   }
 });
 
@@ -55,45 +59,65 @@ app.get('/api/:zipcode', async (req, res) => {
 app.get('/', (req, res) => {
   // Pass character dictionary to object to access values
   const characterArray = Object.values(characters);
+
+  // Assign a variable for the main image
   const neonCat = "/NeonAncient.png";
+
+  // Render the index page, homepage, with the context for use in template
   res.render('index.njk', 
     { characters: characterArray, neonCat },
   );
-  console.log(characters);
 });
 
 // Character View
-app.get('/:name', async (req, res) => {
-  // Get character from character dictionary
-  const characterString = req.params.name;
-  const character = characters[characterString];
+app.get('/:name', async (req, res, next) => {
+  try {
+    // Get character from character dictionary
+    const characterString = req.params.name;
+    const character = characters[characterString];
 
-  // If the character exists...
-  if (character) {
-    console.log(character.name);
+    // Exit if no character found
+    if (!character) {
+      const error = new Error('There is no data found for the character specified');
+      error.status = 404;
+      next(error);
+    }
 
-    // Create navigation by finding indexes of characters
+    /* If the character exists create the navigation and retrieve the breed information and images */
+    // Create navigation by finding indices of characters
     const characterArray = Object.values(characters);
-    console.log(characterArray);
+
     // Find index of the current character
     const currentIndex = characterArray.findIndex(char => char.name === character.name);
-    console.log(currentIndex);
+
+    // Set the index of the previous and next characters
     const prevIndex = (currentIndex - 1 + characterArray.length) % characterArray.length;
     const nextIndex = (currentIndex + 1) % characterArray.length;
 
+    // Set previous and next characters based on indices
     const prevCharacter = characterArray[prevIndex];
     const nextCharacter = characterArray[nextIndex];
 
     // Get and save character breed data
     const BreedData = await getBreedData(character.breed);
-    console.log(BreedData);
     const characterBreedData = BreedData[0];
 
     // Get and save character breed images
     const characterImages = await getBreedImages(characterBreedData.id);
-    console.log("breed data:"+characterBreedData.name);
+
+    // Render the character template with context
     res.render('character.njk', { prevCharacter, nextCharacter, characterBreedData, character, characterImages, characters });
-  } else {
-    res.status(404).send('Character not found');
+
+  } catch (error) {
+    // Send to error handling middleware
+    error.message = 'Breed data not found';
+    error.status = 404;
+    next(error);
   }
+});
+
+// Configure error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(err.status || 500).render('error.njk', { errorMessage: err.message || 'Something went wrong' });
 });
